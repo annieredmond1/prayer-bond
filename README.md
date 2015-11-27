@@ -10,42 +10,6 @@ This is an alternative to emailing prayer requests.  When people send out emails
 [link to app on Heroku](https://aqueous-journey-5377.herokuapp.com/).
 
 
-[link to wireframes in Moqups](https://moqups.com/annieredmond1@gmail.com/zh1l51qJ).
-
-Relationship Diagrams:
----------------------
-User --> (one to many) --> Requests
-
-User narratives:
----------------
-
- 	* John the "user needing prayer" can log in and add new prayer requests.
-
-	* Amy the "non-user wanting to pray" can use the link she received from John to view his page and mark off any requests she's prayed for.
-
-	* Sarah the "non-user who wants to make an account" signs up and  invites her friends/family to view her page with her unique page link.
-
-	* Mike the "user whose prayer has been answered" can login and mark his pr as answered and optionally write a sentence or two describing how it was answered.
-
-Libraries used:
---------------
-   * bcrypt
-   * body-parser
-   * bootstrap-confirm-delete
-   * chai
-   * connect-mongo
-   * cookie-parser
-   * ejs
-   * express
-   * express-session
-   * mocha
-   * mongoose
-   * request
-   * bootstrap
-   * jquery
-   * jquery validate
-   * google fonts
-
 Future development:
 ------------------
 
