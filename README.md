@@ -1,4 +1,4 @@
-Prayer App
+Prayer Bond
 ==========
 
 Description:
