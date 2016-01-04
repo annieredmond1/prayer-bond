@@ -1,0 +1,81 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	
+	background: url('http://i.imgur.com/ovCA9dH.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.navbar {
+	margin: 0px;
+	border-radius: 0;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;	
+}
+
+.alert {
+	display: none;
+}
+
+#home {
+	padding: 200px 0px 200px 0px;
+	
+}
+
+.down-arrow {
+	font-size: 45px;
+	margin-top: 200px;
+}
+.a-tag-down-arrow {
+	color: black;
+	font-size: 45px;
+	margin-top: 200px;
+}
+
+#about {
+	background-color: #FFD6CF;
+	padding: 0px 0px 200px 0px;
+}
+
+#about li {
+	font-size: 20px;
+}
+
+.bottom {
+	height: 50px;
+	background-color: #333;
+	color: #fff;
+}
+
+.page-header {
+	border: none;
+}
+
+#new-request-input {
+	background-color: rgba(244, 252, 242, 1);
+}
+#new-request-submit {
+	margin: 10px 0px;
+}
+
+.well {
+	background-color: rgba(244, 252, 242, 1);
+	min-height: 200px;
+	font-size: 20px;
+	box-shadow: 2px 2px 1px black;
+	padding-bottom: 10px;
+}
+
+.done {
+	background-color: rgba(244, 252, 242, .5);
+}
+
+.close {
+	position: relative;
+}
+
+
+
+

@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- include header portion page -->
-<% include ./_head %>
-
-  
-  
-
+  <!-- include header portion page -->
+  <% include ./_head %>
 </head>
 <body>
-<!-- nav bar -->
-<% include ./_nav %>
-<% var owner, user; %>
+  <!-- nav bar -->
+  <% include ./_nav %>
+  <% var owner, user; %>
   <!-- heading -->
   <div class="page-header">
-  <!-- show if owner -->
+    <!-- show if owner -->
     <div class="container text-center owner">
-        <h1>Welcome <%=user.first_name%>!</h1>
-        <p>Use this link to share your prayer request page:</p> 
-        <p class="link"><a href="https://prayer-bond.herokuapp.com/users/<%=user._id%>">https://prayer-bond.herokuapp.com/users/<%=user._id%></a></p>     
+      <h2>Welcome <%=user.first_name%>!</h2>
+      <h4>Use this link to share your prayer request page:</h4> 
+      <h5 class="link"><a href="https://prayer-bond.herokuapp.com/users/<%=user._id%>">https://prayer-bond.herokuapp.com/users/<%=user._id%></a></h5>     
     </div>
     <!-- show if visitor -->
     <div class="container text-center visitor">
-        <h1>Pray for me!</h1>   
-        <a class="" href="/">Learn about creating your own page here!</a>   
+      <h1>Pray for me!</h1>   
+      <a class="" href="/">Learn about creating your own page here!</a>   
     </div>
   </div>
 
@@ -33,10 +29,10 @@
       <div class="col-md-6 col-md-offset-3">
         <!-- show if owner -->
         <form class="form-group owner input" id="new-request">
-            <input type="text" class="form-control" id="new-request-input" data-id="<%=user._id %>" rows="1" placeholder="Enter new prayer request..." name="description" aria-describedby="basic-addon2">
-            <span class="form-group-btn">
-            <button type="submit" class="btn btn-default pull-right" id="new-request">Submit</button>
-            </span>
+          <input type="text" class="form-control" id="new-request-input" data-id="<%=user._id %>" rows="1" placeholder="Enter new prayer request..." name="description" aria-describedby="basic-addon2">
+          <span class="form-group-btn">
+            <button type="submit" class="btn btn-default pull-right" id="new-request-submit">Submit</button>
+          </span>
         </form>
       </div>
     </div>
@@ -48,92 +44,90 @@
       <div class="col-md-8 col-md-offset-2 requests">
         <ul class=" active list-unstyled">
           <% for(var i = user.requests.length - 1; i>=0; i--) { %>
-            <% if(!user.requests[i].completed) { %>
-              <li class="well" data-id="<%=user.requests[i]._id%>"><%=user.requests[i].description%>
-                <p><strong>Prayer count: <span class="pray-count"> <%= user.requests[i].prayerCount %></span></strong></p>
+          <% if(!user.requests[i].completed) { %>
+          <li class="well" data-id="<%=user.requests[i]._id%>"><%=user.requests[i].description%>
+            <p><strong>Prayer count: <span class="pray-count"> <%= user.requests[i].prayerCount %></span></strong></p>
+            <!-- show if owner -->
+            <button type="button" data-id="<%=user.requests[i]._id%>" class="btn btn-default openModal owner" data-toggle="modal" data-target="#answeredModal">
+              Mark prayer as answered
+            </button>
+            <button type="button" data-id="<%=user.requests[i]._id%>" class="close owner deleteModal" data-target="#deletedModal" data-toggle="modal" data-placement="top" title="Delete prayer request" aria-label="Close">
+              <span aria-hidden="true">X</span></button>
+              <!-- show if visitor -->
+              <label><button type="button" class="btn btn-default btn-xs count visitor">I prayed for this request</button></label>
+            </li>
+            <% } %>
+            <% } %>
+          </ul>
+          <ul class=" completed list-unstyled">
+            <% for(var i = user.requests.length - 1; i>=0; i--) { %>
+            <% if(user.requests[i].completed) { %>
+            <li class="well done" data-id="<%=user.requests[i]._id%>"><h4>Answered Prayer:</h4><%=user.requests[i].description%>
+              <p><strong>Prayer count: <span class="pray-count"> <%= user.requests[i].prayerCount %></span></strong></p>
+              <% if (!!user.requests[i].comment) { %>
+              <p><strong>Update: </strong><%=user.requests[i].comment%>
+                <% } %>
                 <!-- show if owner -->
-                <button type="button" data-id="<%=user.requests[i]._id%>" class="btn btn-default btn-lg openModal owner" data-toggle="modal" data-target="#answeredModal">
-                  Answered
-                </button>
                 <button type="button" data-id="<%=user.requests[i]._id%>" class="close owner deleteModal" data-target="#deletedModal" data-toggle="modal" data-placement="top" title="Delete prayer request" aria-label="Close">
                   <span aria-hidden="true">X</span></button>
-
-                  
-                  <!-- show if visitor -->
-                  <label><button type="button" class="btn btn-default btn-xs count visitor">I prayed for this request</button></label>
-              </li>
-            <% } %>
-          <% } %>
-        </ul>
-        <ul class=" completed list-unstyled">
-          <% for(var i = user.requests.length - 1; i>=0; i--) { %>
-            <% if(user.requests[i].completed) { %>
-              <li class="well done" data-id="<%=user.requests[i]._id%>"><h4>Answered Prayer:</h4><%=user.requests[i].description%>
-                <p><strong>Prayer count: <span class="pray-count"> <%= user.requests[i].prayerCount %></span></strong></p>
-                <% if (!!user.requests[i].comment) { %>
-                <p><strong>Update: </strong><%=user.requests[i].comment%>
+                </li>
                 <% } %>
-                  <!-- show if owner -->
-                    <button type="button" data-id="<%=user.requests[i]._id%>" class="close owner deleteModal" data-target="#deletedModal" data-toggle="modal" data-placement="top" title="Delete prayer request" aria-label="Close">
-                      <span aria-hidden="true">X</span></button>
-              </li>
-            <% } %>
-          <% } %>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for prayer answered button -->
-  <div class="modal fade" id="answeredModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add Update:</h4>
+                <% } %>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <form class="form-horizontal answeredForm">
-            <div class="form-group">
-              <label for="inputAnswered" class="col-sm-3 control-label"></label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="comment" id="inputAnswered" placeholder="Optional...how was prayer request answered?">
+
+        <!-- Modal for prayer answered button -->
+        <div class="modal fade" id="answeredModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Update:</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-horizontal answeredForm">
+                  <div class="form-group">
+                    <label for="inputAnswered" class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="comment" id="inputAnswered" placeholder="Optional...how was prayer request answered?">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="answered-submit">Prayer Answered</button>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary" id="answered-submit">Prayer Answered</button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal for delete button -->
-  <div class="modal fade" id="deletedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" id="delete-modal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Permanently delete prayer request?</h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-horizontal deleteForm">
-            <div class="form-group">
-              <label for="inputAnswered" class="col-sm-3 control-label"></label>
-              <div class="col-sm-9">
-                
+        <!-- Modal for delete button -->
+        <div class="modal fade" id="deletedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" id="delete-modal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Permanently delete prayer request?</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-horizontal deleteForm">
+                  <div class="form-group">
+                    <label for="inputAnswered" class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                      
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="answered-submit">Delete</button>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary" id="answered-submit">Delete</button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</body>
-</html>
+      </body>
+      </html>

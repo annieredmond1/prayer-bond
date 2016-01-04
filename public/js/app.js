@@ -1,57 +1,38 @@
-// CLIENT-SIDE JAVASCRIPT
-
-//TODO
-
 // On page load
 $(document).ready(function(){
   console.log('Javascript is working!');
 
 //validations
-  $('#signUpForm').validate({
-    rules: {
-      email: {
-            required: true,
-            email: true
-          },
-      password: {
-            required: true,
-            minlength: 4
-          },
-      password2: {
-            required: true,
-            minlength: 4,
-            // equalTo: '#password'
-      }
+$('#signUpForm').validate({
+  rules: {
+    email: {
+      required: true,
+      email: true
+    },
+    password: {
+      required: true,
+      minlength: 4
+    },
+    password2: {
+      required: true,
+      minlength: 4,
     }
-  });
-  // $('#log-in').validate({
-  //   rules: {
-  //     email: {
-  //         required: true,
-  //         email: true
-  //       },
-  //     password: {
-  //         required: true
-  //       }
-  //   }
-  // });
+  }
+});
 
 //variable to identify if user is logged in
 var owner;
-//check if a user is logged in
+
+//check if user is logged in
 function checkAuth() {
   $.get('/api/current-user', function (data) {
-    console.log("data is: " + data);
     if (data.user || data.userId) {
-      console.log("logged in");
       $('.not-logged-in').hide();
       $('.visitor').hide();
       owner = true;
     } else {
-      console.log("not logged in");
       $('.logged-in').hide();
       $('.owner').hide();
-
       owner = false;
     }
   });
@@ -69,43 +50,50 @@ function errorHandler(msg, type) {
   
 }
 
-//cookie function for prayed cookie
-
+//cookie function for prayed cookie - TODO
 function setPrayerCookie(requestId) {
-   var now = new Date();
+ var now = new Date();
    now.setTime(now.getTime() + 60 * 1000); //Expire in one minute
    document.cookie = 'name' + requestId + '=1;path=/;expires='+ now.toGMTString()+';';
    console.log("cookie function ran");
-}
+ }
 
 //When sign up form submitted
 $('#signUpForm').on('submit', function(e) {
   e.preventDefault();
+  //check if form is valid
   if ($('#signUpForm').valid()) {
-    console.log("form submitted");
+    //set variable user to the serialized form data
     var user = $(this).serialize();
-    console.log(user);
+    //POST request
     $.ajax({
-        url: '/api/users',
-        type: "POST",
-        data: user
+      url: '/api/users',
+      type: "POST",
+      data: user
     })
+    //if POST request succesfull
     .done(function(data) {
+      //if request comes back with error status 404
       if (data.status == 404) {
         console.log("err message should activate");
+        //set msg for error handler function
         var msg = "Email already in use";
+        //run error handler function
         errorHandler(msg, 'alert-danger');
       } else {
-      window.location.href = "/users/" + data._id;
-      console.log("made a new user");
-    }
+        //if no error redirect to user's page
+        window.location.href = "/users/" + data._id;
+      }
     })
+    //if POST request is unsuccesfull 
     .fail(function(err) {
       console.log("could not create user");
+      //set msg for error handler function
       var msg = "Email already in use";
-        errorHandler(msg, 'alert-danger');
+      //run error handler function
+      errorHandler(msg, 'alert-danger');
     });
- }
+  }
 });
 
 //when log out button is clicked
@@ -128,45 +116,45 @@ $('#log-out').on('click', function(e) {
 
 
 // When user logs in
-  $('#log-in').on('submit', function(e) {
-    e.preventDefault();
-    console.log("login form submitted");
-    var user = $(this).serialize();
-    console.log("user is: " + user);
-    $.ajax({
-      url: '/api/login',
-      type: "POST",
-      data: user
-    })
-    .done(function(data) {
-      if (data.status == 404) {
-        var msg = "Email or password not correct";
-        errorHandler(msg, 'alert-danger');
-      } else {
-      console.log("user logged in");
-        window.location.href = "/users/" + data._id;
-      }
-    })
-    .fail(function() {
+$('#log-in').on('submit', function(e) {
+  e.preventDefault();
+  console.log("login form submitted");
+  var user = $(this).serialize();
+  console.log("user is: " + user);
+  $.ajax({
+    url: '/api/login',
+    type: "POST",
+    data: user
+  })
+  .done(function(data) {
+    if (data.status == 404) {
       var msg = "Email or password not correct";
       errorHandler(msg, 'alert-danger');
-    });
-     
+    } else {
+      console.log("user logged in");
+      window.location.href = "/users/" + data._id;
+    }
+  })
+  .fail(function() {
+    var msg = "Email or password not correct";
+    errorHandler(msg, 'alert-danger');
   });
 
-  
+});
+
+
   //When new prayer request is submitted
   $('#new-request').on('submit', function(e) {
   	e.preventDefault();
     console.log('form submitted');
     var userId = $('#new-request-input').attr('data-id');
     console.log("userID is: " + userId);
-  	var formData = $('#new-request-input').serialize();
+    var formData = $('#new-request-input').serialize();
     console.log("formData is: " + formData);
     var newRequest = $( '#new-request-input').val();
-  	console.log("request is: " + newRequest);
+    console.log("request is: " + newRequest);
     $('#new-request')[0].reset();
-  	$.ajax({
+    $.ajax({
       url: '/api/users/' + userId + '/requests',
       type: "POST",
       data: formData
@@ -179,16 +167,16 @@ $('#log-out').on('click', function(e) {
         location.reload();
       });
 
-    });
+  });
 
 
 //give form in modal a data-id based on the request
-  $('.openModal').on('click', function() {
-    var id = $(this).attr('data-id');
-    console.log("id is: " + id);
-    $('.answeredForm').attr('data-id', id);
-    
-  });
+$('.openModal').on('click', function() {
+  var id = $(this).attr('data-id');
+  console.log("id is: " + id);
+  $('.answeredForm').attr('data-id', id);
+
+});
 
   //give form in modal a data-id based on the request
   $('.deleteModal').on('click', function() {
@@ -203,7 +191,7 @@ $('#log-out').on('click', function(e) {
     e.preventDefault();
     var requestId = $(this).data('id');
     var deleteRequest = $('li[data-id="' + requestId + '"]');
-  	console.log("delete button was clicked");
+    console.log("delete button was clicked");
     var userId = $('#new-request-input').attr('data-id');
     console.log("userId is: " + userId);
     console.log("requestId is: " + requestId);
@@ -224,7 +212,7 @@ $('#log-out').on('click', function(e) {
     e.preventDefault();
     var requestId = $(this).attr('data-id');
     console.log("answered form submitted");
-  	var answerRequest = $('li[data-id="' + requestId + '"]');
+    var answerRequest = $('li[data-id="' + requestId + '"]');
     console.log("answer request is: ", answerRequest);
     var userId = $('#new-request-input').attr('data-id');
     var formData = $('#inputAnswered').serialize();
@@ -278,9 +266,9 @@ $('#log-out').on('click', function(e) {
         // setPrayerCookie(requestId);
 
 
-    });
+      });
   // }
-  });
+});
 
 
 

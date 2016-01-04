@@ -1,118 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include ./_head %>
+  <% include ./_head %>
 </head>
 <body>
-<% include ./_nav %>
-<div class="log-in-error">
+  <% include ./_nav %>
+  <div class="log-in-error">
     <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> Email or password incorrect.
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <strong>Error!</strong> Email or password incorrect.
     </div>
-</div>
-  <div class="welcome-info text-center">
-    <h1>Prayer Bond</h1>
-    <p>An interactive alternative to emailing prayer requests</p>
-    <!-- button trigger sign up modal and to view sample page -->
-      <div class='container'>
-        <div class='row'>
-          <div class='col-md-8 col-md-offset-2 buttons'>
-            <span><a class="btn btn-default btn-lg btn-xl" id="sign-button" data-toggle="modal" data-target="#signUpModal" role="button">Start Sharing<br>Prayers</a>
-            <a href="/users/5657a6b8b205d70300005855" class="btn btn-default btn-lg btn-xl" role="button">View Sample<br>Page</a></span>
-          </div>
-        </div>
-      </div>    
-  </div> 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="thumbnail">
-        
-        <div class="caption">
-          <h3>Share prayer requests by:</h3>
-          <p></p>
-            <ul>
-              <li>Creating a user account and posting new prayer requests.</li>
-              <li>Marking prayer requests as answered.</li>
-              <li>Writing a short update on how request was answered.</li>
-              <li>Deleting prayer requests.</li>
-              <li>Viewing how many times a request has been prayed for.</li>
-            </ul>
-        </div>
-      </div>
+  </div>
+  <section id="home">
+    <div class="welcome-info text-center">
+      <h1>Prayer Bond</h1>
+      <h3>An interactive alternative to emailing prayer requests</h3>
+      <!-- button trigger sign up modal and to view sample page -->
+      <a class="btn btn-default btn-lg" id="sign-button" data-toggle="modal" data-target="#signUpModal" role="button">Get Started</a><br><br>
+      <a href="/users/5657a6b8b205d70300005855" class="btn btn-default" role="button">Preview Page</a> 
     </div>
-    <div class="col-md-6">
-      <div class="thumbnail">
-        
-        <div class="caption">
-          <h3>Pray intentionally by:</h3>
-          <p></p>
-            <ul>
-              <li>Accessing a user's page using their unique link.</li>
-              <li>Viewing their requests.</li>
-              <li>Marking prayer requests as prayed for.</li>
-              <li>Viewing how many times a request has been prayed for.</li>
-              <li>Viewing answered prayer requests with update.</li>
-            </ul>
-        </div>
-      </div>
+    <div class="down-arrow text-center">
+      <a class="a-tag-down-arrow" href="#about"><i class="ion-chevron-down"></i></a> 
     </div> 
-  </div>
- 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create a new account</h4>
+  </section>
+  <section id="about">
+    <div class="row">
+      <div class='col-sm-5 col-sm-offset-1 share-by'>
+        <h3>Share prayer requests by:</h3>
+        <ul>
+          <li>Creating a user account and posting new prayer requests.</li>
+          <li>Marking prayer requests as answered.</li>
+          <li>Writing a short update on how request was answered.</li>
+          <li>Deleting prayer requests.</li>
+          <li>Viewing how many times a request has been prayed for.</li>
+        </ul>
+      </div> 
+      <div class="col-sm-5 pray-by">
+        <h3>Pray intentionally by:</h3>
+        <ul>
+          <li>Accessing a user's page using their unique link.</li>
+          <li>Viewing their requests.</li>
+          <li>Marking prayer requests as prayed for.</li>
+          <li>Viewing how many times a request has been prayed for.</li>
+          <li>Viewing answered prayer requests with update.</li>
+        </ul>
       </div>
-      <!-- sign up form -->
-      <div class="modal-body">
-        <form class="form-horizontal" id="signUpForm">
-          <div class="form-group">
-            <label for="inputFirstName" class="col-sm-3 control-label">First Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="first_name" id="inputFirstName" placeholder="First name...">
+    </div>
+  </section>
+  <footer class='bottom'>
+    <div class="text-center">© Annie Redmond 2015</div>
+  </footer>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create a new account</h4>
+        </div>
+        <!-- sign up form -->
+        <div class="modal-body">
+          <form class="form-horizontal" id="signUpForm">
+            <div class="form-group">
+              <label for="inputFirstName" class="col-sm-3 control-label">First Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="first_name" id="inputFirstName" placeholder="First name...">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="inputLastName" class="col-sm-3 control-label">Last Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="last_name" id="inputLastName" placeholder="Last name...">
+            <div class="form-group">
+              <label for="inputLastName" class="col-sm-3 control-label">Last Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" name="last_name" id="inputLastName" placeholder="Last name...">
+              </div>
             </div>
-          </div>
-          <div class='alert' id='alert-sign-up'></div>
-          <div class="form-group">
-            <label for="inputEmail" class="col-sm-3 control-label">**Email</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control required" name="email" id="inputEmail" placeholder="Email...">
+            <div class='alert' id='alert-sign-up'></div>
+            <div class="form-group">
+              <label for="inputEmail" class="col-sm-3 control-label">**Email</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control required" name="email" id="inputEmail" placeholder="Email...">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword" class="col-sm-3 control-label">**Password</label>
-            <div class="col-sm-9">
-              <input type="password" class="form-control required"name="password" id="inputPassword" placeholder="Create password...">
+            <div class="form-group">
+              <label for="inputPassword" class="col-sm-3 control-label">**Password</label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control required"name="password" id="inputPassword" placeholder="Create password...">
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword2" class="col-sm-3 control-label required">**Confirm Password</label>
-            <div class="col-sm-9">
-              <input type="password" class="form-control" name="password2" id="inputPassword2" placeholder="Confirm password...">
+            <div class="form-group">
+              <label for="inputPassword2" class="col-sm-3 control-label required">**Confirm Password</label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control" name="password2" id="inputPassword2" placeholder="Confirm password...">
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="signUp">Create account</button>
-          </div>
-        </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="signUp">Create account</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>
