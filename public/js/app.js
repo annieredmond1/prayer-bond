@@ -191,10 +191,8 @@ $(document).ready(function(){
   $('.deleteForm').on('submit', function(e) {
     e.preventDefault();
     //set requestId variable with the data-id of the current request
-    console.log('this is: ', this); 
     var requestId = $(this).attr('data-id');
-    console.log('requestId is: ', requestId);
-    //set deleteRequest variable to the jquery item to be removed
+    console.log('requestId is: ', requestId);    //set deleteRequest variable to the jquery item to be removed
     var deleteRequest = $('li[data-id="' + requestId + '"]');
     //set the userId to the data-id of the new request form
     var userId = $('#new-request-input').attr('data-id');
@@ -209,7 +207,6 @@ $(document).ready(function(){
       $('#delete-modal').trigger('click');
       //remove the deleteRequest(variable defined above)
       $(deleteRequest).remove();
-      console.log('now request is: ', requestId);
     });
   });
 
