@@ -1,6 +1,9 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 body {
 	font-family: 'Roboto', sans-serif;
-	
 	background: url('http://i.imgur.com/ovCA9dH.png') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -20,7 +23,7 @@ body {
 }
 
 #home {
-	padding: 200px 0px 200px 0px;
+	padding: 200px 0px;
 	
 }
 
@@ -30,8 +33,6 @@ body {
 }
 .a-tag-down-arrow {
 	color: black;
-	font-size: 45px;
-	margin-top: 200px;
 }
 
 #about {
@@ -51,6 +52,8 @@ body {
 
 .page-header {
 	border: none;
+	padding: 10px;
+	word-wrap: break-word;
 }
 
 #new-request-input {
@@ -76,6 +79,71 @@ body {
 	position: relative;
 }
 
+/*iphone 6 plus*/
+@media (max-width: 415px) {
+	#home {
+		padding: 100px 0px;
+	}
+	#home h3 {
+		font-size: 25px;
+		padding-bottom: 100px;
+	}
+	.welcome-info {
+		padding: 20px;
+	}
+	.down-arrow {
+		margin-top: 100px;
+	}
+	#about {
+		padding: 40px;
+	}
+	#about h3 {
+		font-size: 25px;
+	}
+	#about li {
+		font-size: 18px;
+	}
+	.page-header h2 {
+		font-size: 35px;
+	}
+	.page-header h4 {
+		font-size: 18px
+	}
+	.page-header h5 {
+		font-size: 16px;
+	}
+}
 
+/*iphone 6*/
+@media (max-width: 375px) {
+	.down-arrow {
+		margin-top: 0px;
+	}
+}
 
+/*iphone 5*/
+@media (max-width: 325px) {
+	#home h1 {
+		font-size: 30px;
+	}
+	#home h3 {
+		font-size: 20px;
+		padding-bottom: 50px;
+	}
+	.down-arrow {
+		margin-top: 50px;
+	}
+	#about {
+		padding: 50px 10px 10px 10px;
+	}
+	#about h3 {
+		font-size: 20px;
+	}
+	#about li {
+		font-size: 15px;
+	}
+	.page-header h2 {
+		font-size: 30px;
+	}
+}
 
